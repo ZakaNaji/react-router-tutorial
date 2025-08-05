@@ -1,8 +1,7 @@
 import { createContact, getContacts } from "../contact";
 
 export async function loader() {
-  const contacts = await getContacts();
-  return { contacts };
+  return await getContacts();
 }
 
 export async function action() {
