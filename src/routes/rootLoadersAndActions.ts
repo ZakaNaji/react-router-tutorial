@@ -1,8 +1,10 @@
-import { redirect } from "react-router-dom";
+import { redirect, type LoaderFunctionArgs } from "react-router-dom";
 import { createContact, getContacts } from "../contact";
 
-export async function loader() {
-  return await getContacts();
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+  const query: string = url.searchParams.get("q") ?? "";
+  return await getContacts(query);
 }
 
 export async function action() {
