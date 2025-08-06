@@ -1,5 +1,6 @@
-import { Form, Link, Outlet, useLoaderData } from "react-router-dom";
+import { Form, Outlet, useLoaderData } from "react-router-dom";
 import type { ContactType } from "../types/contactType.js";
+import ContactLink from "./contact_link";
 
 export default function Root() {
   const contacts: ContactType[] = useLoaderData();
@@ -27,18 +28,7 @@ export default function Root() {
           {contacts.length ? (
             <ul>
               {contacts.map((contact) => (
-                <li key={contact.id}>
-                  <Link to={`contacts/${contact.id}`}>
-                    {contact.first || contact.last ? (
-                      <>
-                        {contact.first} {contact.last}
-                      </>
-                    ) : (
-                      <i>No Name</i>
-                    )}{" "}
-                    {contact.favorite && <span>★</span>}
-                  </Link>
-                </li>
+                <ContactLink key={contact.id} contact={contact} />
               ))}
             </ul>
           ) : (
