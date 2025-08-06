@@ -1,9 +1,10 @@
-import { Form, Outlet, useLoaderData } from "react-router-dom";
+import { Form, Outlet, useLoaderData, useNavigation } from "react-router-dom";
 import type { ContactType } from "../types/contactType.js";
 import ContactLink from "./contact_link";
 
 export default function Root() {
   const contacts: ContactType[] = useLoaderData();
+  const navigation = useNavigation();
   return (
     <>
       <div id="sidebar">
@@ -38,7 +39,10 @@ export default function Root() {
           )}
         </nav>
       </div>
-      <div id="detail">
+      <div
+        id="detail"
+        className={navigation.state === "loading" ? "loading" : ""}
+      >
         <Outlet />
       </div>
     </>
