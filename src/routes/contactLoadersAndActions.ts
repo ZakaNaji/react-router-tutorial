@@ -3,7 +3,7 @@ import {
   type ActionFunctionArgs,
   type LoaderFunctionArgs,
 } from "react-router-dom";
-import { getContact, updateContact } from "../contact";
+import { deleteContact, getContact, updateContact } from "../contact";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   if (!params.id) {
@@ -22,4 +22,11 @@ export async function updateAction({ request, params }: ActionFunctionArgs) {
   const updatedContact = Object.fromEntries(formData.entries());
   await updateContact(params.id, updatedContact);
   return redirect(`/contacts/${params.id}`);
+}
+
+export async function destroy({ params }: ActionFunctionArgs) {
+  if (!params.id) throw new Error("IS is mandatory");
+  const status = await deleteContact(params.id);
+  if (!status) throw Error("Something went wrong.");
+  return redirect("/");
 }
