@@ -1,4 +1,10 @@
-import { Form, Outlet, useLoaderData, useNavigation } from "react-router-dom";
+import {
+  Form,
+  Outlet,
+  useLoaderData,
+  useNavigation,
+  useSubmit,
+} from "react-router-dom";
 import type { ContactType } from "../types/contactType.js";
 import ContactLink from "./contact_link";
 import { useEffect } from "react";
@@ -7,6 +13,7 @@ export default function Root() {
   const { contacts, query }: { contacts: ContactType[]; query: string } =
     useLoaderData();
   const navigation = useNavigation();
+  const submit = useSubmit();
 
   useEffect(() => {
     (document.getElementById("q") as HTMLInputElement).value = query;
@@ -25,6 +32,7 @@ export default function Root() {
               type="search"
               name="q"
               defaultValue={query}
+              onChange={(e) => submit(e.target.form)}
             />
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
