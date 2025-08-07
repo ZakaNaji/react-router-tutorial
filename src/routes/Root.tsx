@@ -17,15 +17,6 @@ export default function Root() {
   const isSearching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
-  console.log(
-    "localtion: ",
-    navigation.location,
-    " | search: ",
-    navigation.location?.search,
-    " | ",
-    "urlParams: ",
-    new URLSearchParams(navigation.location?.search)
-  );
 
   useEffect(() => {
     (document.getElementById("q") as HTMLInputElement).value = query;
