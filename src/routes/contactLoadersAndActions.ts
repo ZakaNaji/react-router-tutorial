@@ -30,3 +30,11 @@ export async function destroy({ params }: ActionFunctionArgs) {
   if (!status) throw Error("Something went wrong.");
   return redirect("/");
 }
+
+export async function favoriteAction({ request, params }: ActionFunctionArgs) {
+  if (!params.id) throw new Error("ID is mandatory");
+  const formData = await request.formData();
+
+  const favoriteValue = formData.get("favorite");
+  await updateContact(params.id, { favorite: favoriteValue === "true" });
+}
