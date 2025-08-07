@@ -4,7 +4,8 @@ import { createContact, getContacts } from "../contact";
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const query: string = url.searchParams.get("q") ?? "";
-  return await getContacts(query);
+  const contacts = await getContacts(query);
+  return { contacts, query };
 }
 
 export async function action() {
