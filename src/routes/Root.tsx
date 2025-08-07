@@ -35,7 +35,9 @@ export default function Root() {
               type="search"
               name="q"
               defaultValue={query}
-              onChange={(e) => submit(e.target.form)}
+              onChange={(e) =>
+                submit(e.target.form, { replace: !(query == null) })
+              }
               className={isSearching ? "loading" : ""}
             />
             <div id="search-spinner" aria-hidden hidden={true} />
