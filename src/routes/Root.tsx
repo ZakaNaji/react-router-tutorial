@@ -14,6 +14,18 @@ export default function Root() {
     useLoaderData();
   const navigation = useNavigation();
   const submit = useSubmit();
+  const isSearching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has("q");
+  console.log(
+    "localtion: ",
+    navigation.location,
+    " | search: ",
+    navigation.location?.search,
+    " | ",
+    "urlParams: ",
+    new URLSearchParams(navigation.location?.search)
+  );
 
   useEffect(() => {
     (document.getElementById("q") as HTMLInputElement).value = query;
@@ -33,6 +45,7 @@ export default function Root() {
               name="q"
               defaultValue={query}
               onChange={(e) => submit(e.target.form)}
+              className={isSearching ? "loading" : ""}
             />
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
