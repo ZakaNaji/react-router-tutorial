@@ -10,6 +10,11 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Error("ID is mandatory.");
   }
   const contact = await getContact(params.id);
+  if (!contact)
+    throw new Response(`contact with id: ${params.id} not found`, {
+      status: 404,
+      statusText: `contact with id: ${params.id} not found`,
+    });
   return contact;
 }
 
